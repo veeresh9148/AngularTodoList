@@ -27,7 +27,7 @@ export class ItemlistComponent {
     //     this.data = res;
     //   }
 
-    //   console.log(this.data);
+    console.log(this.data);
     // });
   }
   onDeleteHandler(id) {
