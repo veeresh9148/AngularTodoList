@@ -1,0 +1,84 @@
+<div class="card">
+  <div class="card-header"><strong>Task List</strong></div>
+  <div class="card-body">
+    <table class="table border" *ngIf="filterTask == 'All'">
+      <thead>
+        <th>Sl No</th>
+        <th>Task Name</th>
+        <th>Date</th>
+        <th>status</th>
+        <th>Action</th>
+      </thead>
+      <tbody *ngFor="let taskDetails1 of data; index as datano">
+        <td>{{ datano + 1 }}</td>
+        <td>{{ taskDetails1.task }}</td>
+        <td>{{ taskDetails1.cValue }}</td>
+        <td>{{ taskDetails1.status }}</td>
+        <td>
+          <i
+            class="bi bi-check2"
+            alt="Complete"
+            (click)="onStatusChange(taskDetails1.id)"
+          ></i>
+
+          <i
+            class="bi bi-pencil-square p-3"
+            alt="Edit"
+            (click)="
+              onEditHandler(
+                taskDetails1.id,
+                taskDetails1.task,
+                taskDetails1.cValue,
+                taskDetails1.status
+              )
+            "
+          ></i>
+          <i
+            class="bi bi-trash-fill"
+            alt="Delete"
+            (click)="onDeleteHandler(taskDetails1.id)"
+          ></i>
+        </td>
+      </tbody>
+    </table>
+
+    <!-- new -->
+
+    <table
+      class="table border"
+      *ngIf="filterTask == 'Completed' || filterTask == 'Incompleted'"
+    >
+      <thead>
+        <th>Sl No</th>
+        <th>Task Name</th>
+        <th>Date</th>
+        <th>status</th>
+        <th>Action</th>
+      </thead>
+      <tbody *ngFor="let taskDetails1 of taskArray; index as datano">
+        <td>{{ datano + 1 }}</td>
+        <td>{{ taskDetails1.task }}</td>
+        <td>{{ taskDetails1.cValue }}</td>
+        <td>{{ taskDetails1.status }}</td>
+        <td>
+          <i
+            class="bi bi-pencil-square p-3"
+            (click)="
+              onEditHandler(
+                taskDetails1.id,
+                taskDetails1.task,
+                taskDetails1.cValue,
+                taskDetails1.status
+              )
+            "
+          ></i>
+          <i
+            class="bi bi-trash-fill"
+            (click)="onDeleteHandler(taskDetails1.id)"
+          ></i>
+        </td>
+      </tbody>
+    </table>
+  </div>
+</div>
+<button (click)="onSubmit()">click</button>

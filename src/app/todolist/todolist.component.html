@@ -1,0 +1,6 @@
+<app-navbar (selectedValue)="onStatusFilter($event)"></app-navbar>
+<app-itemlist
+  (isEditEvent)="editHandler($event)"
+  [filterTask]="filteredTask"
+></app-itemlist>
+<app-additem [taskList]="tasklist"></app-additem>

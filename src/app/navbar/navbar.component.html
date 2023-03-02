@@ -1,0 +1,22 @@
+<nav class="navbar navbar-ligth bg-primary">
+  <div class="container-fluid">
+    <div>
+      <img src="assets/to-do-list-apps.png" alt="" height="50px" width="60px" />
+      <span class="p-3"><a class="navbar-brand">Smart ToDo List</a></span>
+    </div>
+
+    <form class="d-flex">
+      <span class="navbar-brand"> Filter:</span>
+      <select
+        name="status"
+        #selectOpt
+        class="form-select me-2 rounded-pill"
+        (change)="selectedOption(selectOpt.value)"
+      >
+        <option default value="All">All</option>
+        <option value="Completed">Completed</option>
+        <option value="Incompleted">Uncomplete</option>
+      </select>
+    </form>
+  </div>
+</nav>
