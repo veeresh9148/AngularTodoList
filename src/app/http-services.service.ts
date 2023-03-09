@@ -1,15 +1,16 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { map, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class HttpServicesService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private toastr: ToastrService) {}
   task1 = [];
-  filteredData = [];
-  data: any = [];
+
+  data;
   filter: string = 'All';
 
   onPostData(task) {
@@ -19,9 +20,8 @@ export class HttpServicesService {
         console.log(res);
       });
   }
-  // observer = new Observable();
+
   onTaskList(): Observable<any> {
-    // this.observer = this.http
     return this.http
       .get('https://angular-cd569-default-rtdb.firebaseio.com/list.json')
       .pipe(
@@ -52,25 +52,16 @@ export class HttpServicesService {
         { task: data }
       )
       .subscribe((res) => {
-        console.log(res);
-        console.log('updated');
+        this.toastr.success('Task is Updated');
       });
   }
-  // Observer1 = new Observable();
+
   onStatusFilter(filterData) {
     this.filter = filterData;
-    this.data = this.task1;
-
     if (this.filter == 'Completed' || this.filter == 'Incompleted') {
-      this.filteredData = this.task1.filter(
-        (resp) => resp.status === filterData
-      );
-      console.log(this.filteredData);
-    } else {
-      this.onTaskList().subscribe((res) => {
-        this.data = res;
-        console.log(this.data);
-      });
+      this.data = this.task1.filter((resp) => resp.status === filterData);
+    } else if (this.filter == 'All') {
+      this.data = this.task1;
     }
   }
   onTaskComplete(id, data) {
@@ -82,8 +73,7 @@ export class HttpServicesService {
         { status: data }
       )
       .subscribe((res) => {
-        console.log(res);
-        console.log('updated');
+        this.toastr.success('Task is Completed');
       });
   }
 }

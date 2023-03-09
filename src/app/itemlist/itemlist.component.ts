@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { filter, from, Observable } from 'rxjs';
 import { HttpServicesService } from '../http-services.service';
 
@@ -8,32 +9,23 @@ import { HttpServicesService } from '../http-services.service';
   styleUrls: ['./itemlist.component.css'],
 })
 export class ItemlistComponent {
-  constructor(private http: HttpServicesService) {}
+  constructor(
+    private http: HttpServicesService,
+    private toastr: ToastrService
+  ) {}
   data;
-  serviceData;
   taskArray;
-  // taskDetails;
-  // taskDetails = new Observable();
+
   @Input() filterTask;
   ngOnInit() {
-    this.data = this.http.data;
-    this.taskArray = this.http.filteredData;
-    // this.http.onTaskList().subscribe((res) => {
-    //   if (this.filterTask == 'Completed' || this.filterTask == 'Incompleted') {
-    //     this.data = this.http.data.filter((resp) => {
-    //       resp.status == this.filterTask;
-    //     });
-    //   } else {
-    //     this.data = res;
-    //   }
-
-    console.log(this.data);
-    // });
+    this.http.onTaskList().subscribe((res) => {
+      this.data = res;
+    });
   }
   onDeleteHandler(id) {
     console.log(id);
     this.http.onDeletedTask(id);
-    alert('task is deleted');
+    this.toastr.success('Task is Deleted');
   }
 
   @Output() isEditEvent = new EventEmitter<string>();
@@ -47,8 +39,5 @@ export class ItemlistComponent {
   onStatusChange(id) {
     let data = 'Completed';
     this.http.onTaskComplete(id, data);
-  }
-  onSubmit() {
-    this.taskArray = this.http.filteredData;
   }
 }

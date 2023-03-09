@@ -11,10 +11,9 @@ export class NavbarComponent {
   // filterStatus;
   @Output() selectedValue = new EventEmitter<string>();
   selectedOption(value) {
-    //console.log(value);
-    this.selectedValue.emit(value);
     // this.filterStatus = value;
     this.http.onStatusFilter(value);
+    this.selectedValue.emit(this.http.data);
   }
   ngOnInit() {
     this.selectedOption('All');

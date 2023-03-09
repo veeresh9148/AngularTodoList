@@ -15,7 +15,6 @@ export class TodolistComponent {
     this.tasklist = taskArray;
   }
   onStatusFilter(value) {
-    console.log(value);
     this.filteredTask = value;
   }
 }
